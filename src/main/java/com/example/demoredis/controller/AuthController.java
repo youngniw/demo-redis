@@ -5,6 +5,7 @@ import com.example.demoredis.dto.TokenDto;
 import com.example.demoredis.dto.TokenRequestDto;
 import com.example.demoredis.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class AuthController {
     public ResponseEntity<TokenDto> getNewToken(@RequestBody LoginDto loginDto) {
         TokenDto token = authService.generateToken(loginDto.getUserId());
 
-        return ResponseEntity.ok(token);
+        return new ResponseEntity<>(token, HttpStatus.CREATED);
     }
 
     // userId로 토큰 생성 (테스트용 - RedisTemplate 이용)
